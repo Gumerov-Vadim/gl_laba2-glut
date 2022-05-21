@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "f0ca5b30-1b12-4a6b-a748-6198564d6ba6": {
+      "ProjectGuid": "f0ca5b30-1b12-4a6b-a748-6198564d6ba6",
+      "DisplayName": "gluttest",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
