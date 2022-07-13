@@ -1,4 +1,7 @@
 ﻿  Source.cpp
+C:\Users\suisideboy\source\repos\gluttest\Source.cpp(45,24): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\Source.cpp(46,54): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\Source.cpp(47,83): warning C4244: =: преобразование "double" в "float", возможна потеря данных
 C:\Users\suisideboy\source\repos\gluttest\Source.cpp(51,43): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
 C:\Users\suisideboy\source\repos\gluttest\Source.cpp(51,48): warning C4244: аргумент: преобразование "double" в "GLfloat", возможна потеря данных
 C:\Users\suisideboy\source\repos\gluttest\Source.cpp(96,37): warning C4267: =: преобразование из "size_t" в "GLint"; возможна потеря данных
