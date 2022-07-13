@@ -8,28 +8,29 @@
 
 GLuint VBO;
 GLuint gScaleLocation;
-
+GLuint gScaleBlue;
 
 static const char* pVS = "                                                          \n\
 #version 330                                                                        \n\
                                                                                     \n\
 layout (location = 0) in vec3 Position;                                             \n\
                                                                                     \n\
-uniform float gScale;                                                               \n\
+uniform float gScale;                                                                \n\
                                                                                     \n\
 void main()                                                                         \n\
 {                                                                                   \n\
-    gl_Position = vec4(gScale * Position.x, gScale * Position.y, Position.z, 1.0);  \n\
+    gl_Position = vec4(gScale * Position.x,  gScale *Position.y, Position.z, 1.0);  \n\
 }";
 
 static const char* pFS = "                                                          \n\
 #version 330                                                                        \n\
                                                                                     \n\
 out vec4 FragColor;                                                                 \n\
+uniform float gBlue;                                                               \n\
                                                                                     \n\
 void main()                                                                         \n\
 {                                                                                   \n\
-    FragColor = vec4(0.7, 0.7, 1.0, 1.0);                                           \n\
+    FragColor = vec4(0.5, 0.5, gBlue, 1.0);                                         \n\
 }";
 
 static void RenderSceneCB()
@@ -37,10 +38,10 @@ static void RenderSceneCB()
     glClear(GL_COLOR_BUFFER_BIT);
 
     static float Scale = 0.0f;
-
+    
     Scale += 0.001f;
-
     glUniform1f(gScaleLocation, sinf(Scale));
+    glUniform1f(gScaleBlue, 0.3*sinf(Scale*5.0)+0.7);
 
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -134,6 +135,8 @@ static void CompileShaders()
 
     gScaleLocation = glGetUniformLocation(ShaderProgram, "gScale");
     assert(gScaleLocation != 0xFFFFFFFF);
+    gScaleBlue = glGetUniformLocation(ShaderProgram, "gBlue");
+    assert(gScaleBlue != 0xFFFFFFFF);
 }
 
 int main(int argc, char** argv)
