@@ -1,5 +1,5 @@
 ﻿  Source.cpp
-C:\Users\suisideboy\source\repos\gluttest\Source.cpp(44,43): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-C:\Users\suisideboy\source\repos\gluttest\Source.cpp(44,48): warning C4244: аргумент: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\suisideboy\source\repos\gluttest\Source.cpp(88,37): warning C4267: =: преобразование из "size_t" в "GLint"; возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\Source.cpp(51,43): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\Source.cpp(51,48): warning C4244: аргумент: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\Source.cpp(96,37): warning C4267: =: преобразование из "size_t" в "GLint"; возможна потеря данных
   gluttest.vcxproj -> C:\Users\suisideboy\source\repos\gluttest\x64\Debug\gluttest.exe

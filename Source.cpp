@@ -9,17 +9,17 @@
 GLuint VBO;
 GLuint gScaleLocation;
 GLuint gScaleBlue;
+GLuint gWorldLocation;
 
 static const char* pVS = "                                                          \n\
 #version 330                                                                        \n\
                                                                                     \n\
 layout (location = 0) in vec3 Position;                                             \n\
                                                                                     \n\
-uniform float gScale;                                                                \n\
-                                                                                    \n\
+uniform mat4 gWorld;                                                                \n\
 void main()                                                                         \n\
 {                                                                                   \n\
-    gl_Position = vec4(gScale * Position.x,  gScale *Position.y, Position.z, 1.0);  \n\
+    gl_Position = gWorld * vec4(Position, 1.0);                                     \n\
 }";
 
 static const char* pFS = "                                                          \n\
@@ -40,8 +40,16 @@ static void RenderSceneCB()
     static float Scale = 0.0f;
     
     Scale += 0.001f;
+
+    Matrix4f World;
+    World.m[0][0] = 1.0f; World.m[0][1] = 0.0f; World.m[0][2] = 0.0f; World.m[0][3] = sinf(Scale);
+    World.m[1][0] = 0.0f; World.m[1][1] = 1.0f; World.m[1][2] = 0.0f; World.m[1][3] = 0.0f;
+    World.m[2][0] = 0.0f; World.m[2][1] = 0.0f; World.m[2][2] = 1.0f; World.m[2][3] = 0.0f;
+    World.m[3][0] = 0.0f; World.m[3][1] = 0.0f; World.m[3][2] = 0.0f; World.m[3][3] = 1.0f;
+
     glUniform1f(gScaleLocation, sinf(Scale));
     glUniform1f(gScaleBlue, 0.3*sinf(Scale*5.0)+0.7);
+    glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, &World.m[0][0]);
 
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -133,7 +141,7 @@ static void CompileShaders()
 
     glUseProgram(ShaderProgram);
 
-    gScaleLocation = glGetUniformLocation(ShaderProgram, "gScale");
+    gWorldLocation = glGetUniformLocation(ShaderProgram, "gWorld");
     assert(gScaleLocation != 0xFFFFFFFF);
     gScaleBlue = glGetUniformLocation(ShaderProgram, "gBlue");
     assert(gScaleBlue != 0xFFFFFFFF);
