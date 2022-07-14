@@ -8,7 +8,6 @@
 
 GLuint VBO;
 GLuint gScaleLocation;
-GLuint gScaleBlue;
 GLuint gWorldLocation;
 
 static const char* pVS = "                                                          \n\
@@ -22,7 +21,7 @@ uniform mat4 gWorld;                                                            
 void main()                                                                         \n\
 {                                                                                   \n\
     gl_Position = gWorld * vec4(Position, 1.0);                                     \n\
-    Color = vec4(clamp(Position, 0.0, 1.0), 1.0);                                   \n\
+    Color = vec4(clamp(Position, 0.3, 0.9), 1.0);                                   \n\
 }";                                                                                 
 
 static const char* pFS = "                                                          \n\
@@ -30,7 +29,6 @@ static const char* pFS = "                                                      
                                                                                     \n\
 in vec4 Color;                                                                       \n\
 out vec4 FragColor;                                                                 \n\
-uniform float gBlue;                                                                \n\
                                                                                     \n\
 void main()                                                                         \n\
 {                                                                                   \n\
@@ -52,7 +50,6 @@ static void RenderSceneCB()
     World.m[3][0] = 0.0f;        World.m[3][1] = 0.0f;        World.m[3][2] = 0.0f;        World.m[3][3] = 1.0f;
 
     glUniform1f(gScaleLocation, sinf(Scale));
-    glUniform1f(gScaleBlue, 0.3*sinf(Scale*5.0)+0.7);
     glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, &World.m[0][0]);
 
     glEnableVertexAttribArray(0);
@@ -147,8 +144,6 @@ static void CompileShaders()
 
     gWorldLocation = glGetUniformLocation(ShaderProgram, "gWorld");
     assert(gScaleLocation != 0xFFFFFFFF);
-    gScaleBlue = glGetUniformLocation(ShaderProgram, "gBlue");
-    assert(gScaleBlue != 0xFFFFFFFF);
 }
 
 int main(int argc, char** argv)
