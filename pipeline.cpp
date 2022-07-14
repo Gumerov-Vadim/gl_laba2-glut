@@ -33,7 +33,6 @@ void Pipeline::InitRotateTransform(Matrix4f& m) const
 
     m = rz * ry * rx;
 }
-
 void Pipeline::InitTranslationTransform(Matrix4f& m) const
 {
     m.m[0][0] = 1.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = m_worldPos.x;
@@ -41,14 +40,21 @@ void Pipeline::InitTranslationTransform(Matrix4f& m) const
     m.m[2][0] = 0.0f; m.m[2][1] = 0.0f; m.m[2][2] = 1.0f; m.m[2][3] = m_worldPos.z;
     m.m[3][0] = 0.0f; m.m[3][1] = 0.0f; m.m[3][2] = 0.0f; m.m[3][3] = 1.0f;
 }
+void Pipeline::InitIdentity(Matrix4f& m) const 
+{
+    m.m[0][0] = 1.0f; m.m[0][1] = 0.0f; m.m[0][2] = 0.0f; m.m[0][3] = 0.0f;
+    m.m[1][0] = 0.0f; m.m[1][1] = 1.0f; m.m[1][2] = 0.0f; m.m[1][3] = 0.0f;
+    m.m[2][0] = 0.0f; m.m[2][1] = 0.0f; m.m[2][2] = 1.0f; m.m[2][3] = 0.0f;
+    m.m[3][0] = 0.0f; m.m[3][1] = 0.0f; m.m[3][2] = 0.0f; m.m[3][3] = 1.0f;
 
-
+}
 const Matrix4f* Pipeline::GetTrans()
 {
     Matrix4f ScaleTrans, RotateTrans, TranslationTrans;
-
-    InitScaleTransform(ScaleTrans);
-    InitRotateTransform(RotateTrans);
+    Vector3f edm = Vector3f(1.0f, 1.0f, 1.0f);
+    Vector3f zem = Vector3f(0.0f, 0.0f, 0.0f);
+    (m_scale == edm) ? InitIdentity(ScaleTrans) : InitScaleTransform(ScaleTrans);
+    (m_rotateInfo == zem) ? InitIdentity(RotateTrans): InitRotateTransform(RotateTrans);
     InitTranslationTransform(TranslationTrans);
 
     m_transformation = TranslationTrans * RotateTrans * ScaleTrans;

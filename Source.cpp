@@ -46,9 +46,9 @@ static void RenderSceneCB()
     Scale += 0.001f;
 
     Pipeline p;
-    p.Scale(sinf(Scale * 0.1f), sinf(Scale * 0.1f), sinf(Scale * 0.1f));
-    p.WorldPos(sinf(Scale), 0.0f, 0.0f);
-    p.Rotate(sinf(Scale) * 90.0f, sinf(Scale) * 90.0f, sinf(Scale) * 90.0f);
+    p.Scale(0.4f, 0.4f, 0.4f);
+    p.WorldPos(sinf(Scale)/2.0, cosf(Scale) / 2.0, 0.0f);
+    p.Rotate(sinf(Scale) * 390.0f, sinf(Scale) * 390.0f, sinf(Scale) * 390.0f);
 
     glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, (const GLfloat*)p.GetTrans());
 
@@ -60,7 +60,7 @@ static void RenderSceneCB()
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     
-    glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, 0);
 
     glDisableVertexAttribArray(0);
 
@@ -76,21 +76,28 @@ static void InitializeGlutCallbacks()
 
 static void CreateVertexBuffer()
 {
-    Vector3f Vertices[4];
+    Vector3f Vertices[5];
     Vertices[0] = Vector3f(-1.0f, -1.0f, 0.0f);
     Vertices[1] = Vector3f(0.0f, -1.0f, 1.0f);
     Vertices[2] = Vector3f(1.0f, -1.0f, 0.0f);
-    Vertices[3] = Vector3f(0.0f, 1.0f, 0.0f);
+    Vertices[3] = Vector3f(0.0f, -1.0f, -1.0f);
+    Vertices[4] = Vector3f(0.0f, 1.0f, 0.0f);
 
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 }
 static void CreateIndexBuffer() {
-    unsigned int Indices[] = { 0, 3, 1,
-                           1, 3, 2,
-                           2, 3, 0,
-                           0, 2, 1 };
+    unsigned int Indices[] = {
+                           0, 4, 1,
+                           1, 4, 2,
+                           2, 4, 0,
+                           3, 4 ,1, 
+                           3, 4, 2,
+                           3, 4, 0,
+                           0, 3, 1,
+                           0, 2, 1
+    };
     glGenBuffers(1, &IBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);

@@ -22,6 +22,9 @@ struct Vector3f
         y = _y;
         z = _z;
     }
+    bool operator ==(const Vector3f& v) {
+        return (x == v.x && y == v.y && z == v.z) ? 1 : 0;
+    }
 };
 
 class Matrix4f
