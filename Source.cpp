@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <math.h>
 #include "math_3d.h"
+#include "pipeline.h"
 
 GLuint VBO;
 GLuint IBO;
@@ -44,14 +45,14 @@ static void RenderSceneCB()
     
     Scale += 0.001f;
 
-    Matrix4f World;
-    World.m[0][0] = cosf(Scale); World.m[0][1] = 0.0f;        World.m[0][2] = -sinf(Scale);        World.m[0][3] = 0.0f;
-    World.m[1][0] = 0.0f;        World.m[1][1] = 1.0f;        World.m[1][2] = 0.0f;        World.m[1][3] = 0.0f;
-    World.m[2][0] = sinf(Scale); World.m[2][1] = 0.0f;        World.m[2][2] = cosf(Scale); World.m[2][3] = 0.0f;
-    World.m[3][0] = 0.0f;        World.m[3][1] = 0.0f;        World.m[3][2] = 0.0f;        World.m[3][3] = 1.0f;
+    Pipeline p;
+    p.Scale(sinf(Scale * 0.1f), sinf(Scale * 0.1f), sinf(Scale * 0.1f));
+    p.WorldPos(sinf(Scale), 0.0f, 0.0f);
+    p.Rotate(sinf(Scale) * 90.0f, sinf(Scale) * 90.0f, sinf(Scale) * 90.0f);
+
+    glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, (const GLfloat*)p.GetTrans());
 
     glUniform1f(gScaleLocation, sinf(Scale));
-    glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, &World.m[0][0]);
 
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
