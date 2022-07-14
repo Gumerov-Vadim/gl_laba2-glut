@@ -39,7 +39,7 @@ static void RenderSceneCB()
 
     static float Scale = 0.0f;
     
-    Scale += 0.01f;
+    Scale += 0.001f;
 
     Matrix4f World;
     World.m[0][0] = 0.5+sqrt(sinf(Scale) * sinf(Scale))*0.3; World.m[0][1] = 0.0f;        World.m[0][2] = 0.0f;        World.m[0][3] = 0.0f;
