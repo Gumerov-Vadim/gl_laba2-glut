@@ -16,21 +16,25 @@ static const char* pVS = "                                                      
                                                                                     \n\
 layout (location = 0) in vec3 Position;                                             \n\
                                                                                     \n\
+out vec4 Color;                                                                     \n\
 uniform mat4 gWorld;                                                                \n\
+                                                                                    \n\
 void main()                                                                         \n\
 {                                                                                   \n\
     gl_Position = gWorld * vec4(Position, 1.0);                                     \n\
-}";
+    Color = vec4(clamp(Position, 0.0, 1.0), 1.0);                                   \n\
+}";                                                                                 
 
 static const char* pFS = "                                                          \n\
 #version 330                                                                        \n\
                                                                                     \n\
+in vec4 Color;                                                                       \n\
 out vec4 FragColor;                                                                 \n\
-uniform float gBlue;                                                               \n\
+uniform float gBlue;                                                                \n\
                                                                                     \n\
 void main()                                                                         \n\
 {                                                                                   \n\
-    FragColor = vec4(0.5, 0.5, gBlue, 1.0);                                         \n\
+    FragColor = Color;                                                              \n\
 }";
 
 static void RenderSceneCB()
