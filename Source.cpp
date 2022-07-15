@@ -60,7 +60,7 @@ static void RenderSceneCB()
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     
-    glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, 0);
 
     glDisableVertexAttribArray(0);
 
@@ -91,12 +91,10 @@ static void CreateIndexBuffer() {
     unsigned int Indices[] = {
                            0, 4, 1,
                            1, 4, 2,
-                           2, 4, 0,
-                           3, 4 ,1, 
-                           3, 4, 2,
-                           3, 4, 0,
-                           0, 3, 1,
-                           0, 2, 1
+                           2, 4, 3,
+                           3, 4 ,0,
+                           2, 1, 0,
+                           0, 3, 2
     };
     glGenBuffers(1, &IBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
