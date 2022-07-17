@@ -7,6 +7,8 @@
 #include "math_3d.h"
 #include "pipeline.h"
 
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 768
 GLuint VBO;
 GLuint IBO;
 GLuint gScaleLocation;
@@ -23,7 +25,7 @@ uniform mat4 gWorld;                                                            
 void main()                                                                         \n\
 {                                                                                   \n\
     gl_Position = gWorld * vec4(Position, 1.0);                                     \n\
-    Color = vec4(clamp(Position, 0.3, 0.9), 1.0);                                   \n\
+    Color = vec4(clamp(Position, 0.3, 0.9), 0.24);                                   \n\
 }";                                                                                 
 
 static const char* pFS = "                                                          \n\
@@ -43,13 +45,12 @@ static void RenderSceneCB()
 
     static float Scale = 0.0f;
     
-    Scale += 0.001f;
+    Scale += 0.1f;
 
     Pipeline p;
-    p.Scale(0.4f, 0.4f, 0.4f);
-    p.WorldPos(sinf(Scale)/2.0, cosf(Scale) / 2.0, 0.0f);
-    p.Rotate(sinf(Scale) * 390.0f, sinf(Scale) * 390.0f, sinf(Scale) * 390.0f);
-
+    p.Rotate(0.0f, Scale, 0.0f);
+    p.WorldPos(0.0f, 0.0f, 5.0f);
+    p.SetPerspectiveProj(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 100.0f);
     glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, (const GLfloat*)p.GetTrans());
 
     glUniform1f(gScaleLocation, sinf(Scale));
