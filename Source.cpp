@@ -4,7 +4,6 @@
 #include <GL/freeglut.h>
 #include <assert.h>
 #include <math.h>
-#include "math_3d.h"
 #include "pipeline.h"
 
 #define WINDOW_WIDTH 1024
@@ -12,7 +11,7 @@
 GLuint VBO;
 GLuint IBO;
 GLuint gScaleLocation;
-GLuint gWorldLocation;
+GLuint gWVPLocation;
 
 static const char* pVS = "                                                          \n\
 #version 330                                                                        \n\
@@ -25,7 +24,7 @@ uniform mat4 gWorld;                                                            
 void main()                                                                         \n\
 {                                                                                   \n\
     gl_Position = gWorld * vec4(Position, 1.0);                                     \n\
-    Color = vec4(clamp(Position, 0.3, 0.9), 0.24);                                   \n\
+    Color = vec4(clamp(Position, 0.0, 1.0), 1.0f);                                   \n\
 }";                                                                                 
 
 static const char* pFS = "                                                          \n\
@@ -49,9 +48,15 @@ static void RenderSceneCB()
 
     Pipeline p;
     p.Rotate(0.0f, Scale, 0.0f);
-    p.WorldPos(0.0f, 0.0f, 5.0f);
-    p.SetPerspectiveProj(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 100.0f);
-    glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, (const GLfloat*)p.GetTrans());
+    p.WorldPos(0.0f, 0.0f, 3.0f);
+    p.SetPerspectiveProj(60.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 100.0f);
+
+    Vector3f CameraPos(1.0f, 1.0f, -3.0f);
+    Vector3f CameraTarget(0.45f, 0.0f, 1.0f);
+    Vector3f CameraUp(0.0f, 1.0f, 0.0f);
+    p.SetCamera(CameraPos, CameraTarget, CameraUp);
+
+    glUniformMatrix4fv(gWVPLocation, 1, GL_TRUE, (const GLfloat*)p.GetTrans());
 
     glUniform1f(gScaleLocation, sinf(Scale));
 
@@ -162,7 +167,7 @@ static void CompileShaders()
 
     glUseProgram(ShaderProgram);
 
-    gWorldLocation = glGetUniformLocation(ShaderProgram, "gWorld");
+    gWVPLocation = glGetUniformLocation(ShaderProgram, "gWorld");
     assert(gScaleLocation != 0xFFFFFFFF);
 }
 

@@ -1,3 +1,12 @@
 ﻿  Source.cpp
-C:\Users\suisideboy\source\repos\gluttest\Source.cpp(117,37): warning C4267: =: преобразование из "size_t" в "GLint"; возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\Source.cpp(122,37): warning C4267: =: преобразование из "size_t" в "GLint"; возможна потеря данных
+  pipeline.cpp
+C:\Users\suisideboy\source\repos\gluttest\pipeline.cpp(15,21): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\pipeline.cpp(15,19): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\pipeline.cpp(16,21): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\pipeline.cpp(16,19): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\pipeline.cpp(17,21): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\pipeline.cpp(17,19): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+C:\Users\suisideboy\source\repos\gluttest\pipeline.cpp(57,35): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  Создание кода...
   gluttest.vcxproj -> C:\Users\suisideboy\source\repos\gluttest\x64\Debug\gluttest.exe

@@ -24,7 +24,10 @@ struct Vector3f
     }
     bool operator ==(const Vector3f& v) {
         return (x == v.x && y == v.y && z == v.z) ? 1 : 0;
-    }
+    }  
+    Vector3f Cross(const Vector3f& v) const;
+
+    Vector3f& Normalize();
 };
 
 class Matrix4f
@@ -60,6 +63,12 @@ public:
 
         return Ret;
     }
+    void InitScaleTransform(float ScaleX, float ScaleY, float ScaleZ);
+    void InitRotateTransform(float RotateX, float RotateY, float RotateZ);
+    void InitTranslationTransform(float x, float y, float z);
+    void InitCameraTransform(const Vector3f& Target, const Vector3f& Up);
+    void InitPersProjTransform(float FOV, float Width, float Height, float zNear, float zFar);
+
 };
 
 
